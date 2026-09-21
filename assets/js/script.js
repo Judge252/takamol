@@ -20,7 +20,7 @@ let toastTimer;
 let preferredDoctor = null;
 
 function renderServices() {
-  $('#service-grid').innerHTML = services.map(service => `<article class="service-card" id="service-${service.id}" style="--card-color:${service.color};--card-bg:${service.bg}"><button class="service-photo-button" data-service="${service.id}" aria-label="تفاصيل ${service.title}"><img src="assets/images/${service.title}.webp" alt="${service.title}" width="800" height="533" loading="lazy" decoding="async"></button><div class="service-card-body"><span class="service-card-icon">${icon(service.icon)}</span><h3>${service.title}</h3><p>${service.short}</p><button class="text-button" data-service="${service.id}">اعرف أكثر عن الخدمة ${icon('arrow')}</button></div></article>`).join('');
+  $('#service-grid').innerHTML = services.map(service => `<article class="service-card" id="service-${service.id}" style="--card-color:${service.color};--card-bg:${service.bg}"><button class="service-photo-button" data-service="${service.id}" aria-label="تفاصيل ${service.title}"><img src="assets/images/${service.title}.webp" alt="${service.title}" width="800" height="533" loading="lazy" decoding="async"></button><div class="service-card-body"><svg class="doodle service-motif" aria-hidden="true" focusable="false"><use href="#d-${service.id==='learning'?'blocks':service.id}"/></svg><span class="service-card-icon">${icon(service.icon)}</span><h3>${service.title}</h3><p>${service.short}</p><button class="text-button" data-service="${service.id}">اعرف أكثر عن الخدمة ${icon('arrow')}</button></div></article>`).join('');
 }
 
 // Replace pending profiles when the clinic provides approved names and details.
@@ -217,3 +217,7 @@ function configureTeamCarousel(){teamTrack.tabIndex=phoneCarousel.matches?0:-1;s
 phoneCarousel.addEventListener('change',configureTeamCarousel);
 window.addEventListener('resize',syncTeamCarousel,{passive:true});
 configureTeamCarousel();
+
+// Manual hero slideshow: no automatic motion or unexpected image changes.
+const heroCaptions=[['أهلًا بك في مركز تكامل','مساحة للرعاية، وبداية لخطوة جديدة.'],['كل حركة، خطوة لقدّام','العلاج الطبيعي وتأهيل الأطفال'],['قدرات صغيرة، وأحلام كبيرة','تنمية المهارات والتعلّم من خلال اللعب']];
+$$('[data-hero-dot]').forEach(dot=>dot.addEventListener('click',()=>{const index=Number(dot.dataset.heroDot);$$('[data-hero-slide]').forEach((slide,i)=>slide.hidden=i!==index);$$('[data-hero-dot]').forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));$('#hero-caption-title').textContent=heroCaptions[index][0];$('#hero-caption-text').textContent=heroCaptions[index][1];}));

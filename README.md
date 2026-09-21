@@ -26,3 +26,19 @@ Checked the photos, visible section order, navigation targets, all six service p
 ## Mobile compact layout update
 At widths up to 760 px the six services use two columns and three rows, smaller image panels and compact card spacing. The team becomes a native horizontal scroll-snap carousel with a partial next-card preview, previous/next buttons, progress dots and keyboard support. Desktop grids are retained. Carousel navigation, native horizontal scrolling, profile popups, and 320/390 px overflow were verified; desktop layout was checked at 1440 px.
 "# takamol" 
+
+## Dark redesign — September 21
+The active theme is assets/css/theme.css, loaded after the existing responsive layout stylesheet. It adopts the supplied clinic site's midnight #0c0f1a, gold #d4a843 / #f0c96a and teal #18bba7 styling, framed split hero, gradient cards and circular team portraits. Child-oriented accents include soft corners, play/discovery/progress chips and colored service motifs. The clinic hero has three manually selectable slides. The title star is removed.
+
+The mobile services remain two columns and three rows. Team cards retain native swipe navigation, arrows and dots, plus profile popups. The feedback cards quote the owner's supplied Facebook text; they are comments, not verified numerical ratings. No numerical scores or treatment outcomes were invented. Two team profiles remain labelled fictional samples pending real details.
+
+Logo icons are included as favicon.ico, PNG icons and Apple touch icon. Static Open Graph and Twitter preview tags point to the supplied clinic hero image. A PUBLIC URL is still needed to finalize absolute preview URLs: run `node scripts/set-public-url.cjs https://your-domain.com/` before publishing. localhost cannot be fetched by social platforms.
+
+The redesign checks covered hero slide switching, all six service detail and booking paths, the doctor popup and doctor-specific WhatsApp request, team carousel navigation, photo loading, responsive grids, no page overflow and JavaScript page errors. No messages were sent and no deployment was performed.
+
+## Pediatric visual enhancement
+This is a decorative extension of the approved dark theme, organized under CHILD-FRIENDLY VISUAL SYSTEM in theme.css. The original CSS and all visitor-facing copy are preserved. The only service-renderer addition is an aria-hidden SVG motif; service data and all behavior remain unchanged.
+
+The system adds a restrained pastel accent palette, sparse desktop background doodles, a small hero kite/cloud/toy-block detail, subtly folded sticker chips, activity-specific service motifs (footsteps, speech bubbles, puzzle, bubbles, blocks, spoon), a dotted care journey, faint portrait outlines and one peek-a-boo bear at the CTA edge. All added SVGs are aria-hidden, non-focusable and pointer-inert. Background doodles are hidden on smaller screens. Motion stops for prefers-reduced-motion. No libraries or image assets were added.
+
+Verification: source comparison confirmed unchanged page copy, service/doctor data, behavior and base stylesheet. Layout checks passed at 320, 360, 390, 430, 768, 1024 and 1440 px, including no page overflow or decoration/text collisions. Hero switching, six service dialogs and booking selections, three doctor dialogs, required-name validation, booking review/edit, doctor preference in WhatsApp, guide, FAQ and team navigation passed. Reduced-motion emulation produced no running doodle animations. Existing text contrast was checked against the raised dark surface. No messages were sent.
