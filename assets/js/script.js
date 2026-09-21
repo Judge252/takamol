@@ -14,13 +14,16 @@ const services = [
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const icon = name => `<svg aria-hidden="true"><use href="#i-${name}"/></svg>`;
+const serviceIcon = id => '<svg class="service-illustration" aria-hidden="true" focusable="false"><use href="#service-icon-'+id+'"/></svg>';
+const serviceDetails = {"physio":["للأطفال الذين يواجهون صعوبة في الحركة أو التوازن أو اكتساب المهارات الحركية، بحسب تقييم الأخصائي.","مناقشة التاريخ الصحي وملاحظة الحركة والجلوس والمشي بحسب عمر الطفل، ثم الاتفاق على أولويات الأسرة.","أنشطة حركة ولعب موجّهة وتمارين مناسبة لقدرات الطفل، مع إرشادات منزلية يشرحها الأخصائي.","دعم الحركة والاستقلال والمشاركة في أنشطة الحياة اليومية. تُراجع الأهداف مع الأسرة دون وعد بنتيجة أو مدة ثابتة."],"speech":["للأطفال الذين تحتاج مهارات اللغة أو وضوح الكلام أو التواصل لديهم إلى تقييم ودعم.","يسأل الأخصائي عن تطوّر التواصل واللغات المستخدمة، ويلاحظ الفهم والتعبير واللعب. قد يوصي بتقييم السمع عند الحاجة.","ألعاب وحوار وأنشطة تواصل مناسبة للعمر، مع فرص لتطبيق المهارات في الروتين اليومي.","تحسين قدرة الطفل على الفهم والتعبير والمشاركة، بأهداف فردية قابلة للمتابعة."],"sensory":["للأطفال الذين تؤثر استجاباتهم للمثيرات الحسية على اللعب أو المشاركة اليومية، بعد تقييم متخصص.","تُناقش المواقف التي تريح الطفل أو تزعجه، وتُلاحظ مشاركته في أنشطة مناسبة؛ ليس كل اختلاف حسي بحاجة إلى برنامج علاجي.","قد تتضمن الجلسة أنشطة حركة ولمس وتوازن متدرجة، مع مراعاة راحة الطفل وتجنّب إجباره.","تحسين المشاركة والراحة في أنشطة محددة تهم الأسرة. تُراجع فائدة البرنامج وتُعدّل الخطة حسب الاستجابة."],"water":["للأطفال الذين قد يناسبهم التأهيل في الماء ضمن خطة الحركة، بعد التأكد من الملاءمة الصحية.","يراجع الأخصائي التاريخ الصحي وأهداف الحركة واحتياطات السلامة قبل تحديد إمكانية المشاركة.","أنشطة حركة موجّهة في الماء تحت إشراف متخصص. يُرجى تأكيد ترتيبات الخدمة والمتطلبات مع المركز.","دعم ممارسة الحركة والمشاركة ضمن أهداف شخصية؛ لا يحل البرنامج المائي تلقائيًا محل برامج التأهيل الأخرى."],"learning":["للأطفال الذين يواجهون صعوبات في مهارات التعلّم أو أداء الأنشطة اليومية المرتبطة بها.","حوار مع الأسرة عن التحديات ومراجعة التقارير المتاحة وملاحظة مهارات الطفل، مع الإحالة لتقييمات إضافية إذا لزم الأمر.","أنشطة تعليمية وألعاب متدرجة للمهارات الإدراكية والوعي الصوتي وتنظيم المهام، وفق نتائج التقييم.","بناء مهارات عملية تساعد الطفل على المشاركة والتعلّم مع متابعة أهداف صغيرة وواضحة."],"feeding":["للأطفال الذين يواجهون صعوبة في المضغ أو البلع أو تقبّل الطعام؛ يحدد التقييم التخصصات المطلوبة.","مراجعة التاريخ الصحي وروتين الوجبات ومهارات الأكل. قد يلزم تقييم طبي أو فحوص إضافية للبلع قبل وضع الخطة.","أنشطة وتوجيهات فردية يختارها المختص وفق التقييم، مع إشراك الأسرة ومراعاة أمان البلع.","دعم تناول الطعام بأمان وراحة وفق حالة الطفل. لا تغيّر قوام الطعام أو السوائل دون توجيه المختص."]};
 let activeService = null;
 let dialogOpener = null;
 let toastTimer;
 let preferredDoctor = null;
 
 function renderServices() {
-  $('#service-grid').innerHTML = services.map(service => `<article class="service-card" id="service-${service.id}" style="--card-color:${service.color};--card-bg:${service.bg}"><button class="service-photo-button" data-service="${service.id}" aria-label="تفاصيل ${service.title}"><img src="assets/images/${service.title}.webp" alt="${service.title}" width="800" height="533" loading="lazy" decoding="async"></button><div class="service-card-body"><svg class="doodle service-motif" aria-hidden="true" focusable="false"><use href="#d-${service.id==='learning'?'blocks':service.id}"/></svg><span class="service-card-icon">${icon(service.icon)}</span><h3>${service.title}</h3><p>${service.short}</p><button class="text-button" data-service="${service.id}">اعرف أكثر عن الخدمة ${icon('arrow')}</button></div></article>`).join('');
+  if (!$('#service-grid')) return;
+  $('#service-grid').innerHTML = services.map(service => `<article class="service-card" id="service-${service.id}" style="--card-color:${service.color};--card-bg:${service.bg}"><button class="service-photo-button" data-service="${service.id}" aria-label="تفاصيل ${service.title}"><img src="assets/images/${service.title}.webp" alt="${service.title}" width="800" height="533" loading="lazy" decoding="async"></button><div class="service-card-body"><svg class="doodle service-motif" aria-hidden="true" focusable="false"><use href="#d-${service.id==='learning'?'blocks':service.id}"/></svg><span class="service-card-icon">${serviceIcon(service.id)}</span><h3>${service.title}</h3><p>${service.short}</p><button class="text-button" data-service="${service.id}">اعرف أكثر عن الخدمة ${icon('arrow')}</button></div></article>`).join('');
 }
 
 // Replace pending profiles when the clinic provides approved names and details.
@@ -31,6 +34,7 @@ const doctors = [
 ];
 let activeDoctor = null;
 function renderDoctors() {
+  if (!$('#team-grid')) return;
   $('#team-grid').innerHTML = doctors.map((doctor,index) => `<article class="doctor-card${doctor.pending?' pending-profile':''}">${doctor.image?`<img class="doctor-photo" src="${doctor.image}" alt="${doctor.name}" width="747" height="946" loading="lazy">`:`<div class="doctor-placeholder" aria-hidden="true">${icon('heart')}<span>فريق تكامل</span></div>`}<div class="doctor-card-body">${doctor.sample?`<span class="sample-label">ملف تجريبي</span>`:``}<span class="eyebrow">${doctor.sample?'نموذج لعضو الفريق':'العلاج الطبيعي للأطفال'}</span><h3>${doctor.name}</h3><p>${doctor.pending?'سيُضاف الاسم والتخصص والمؤهلات قريبًا.':doctor.role}</p><button class="btn btn-outline" data-doctor="${doctor.id}" aria-label="${'الملف الكامل — '+doctor.name}">${doctor.pending?'حالة الملف':'الملف الكامل'} ${icon('arrow')}</button></div></article>`).join('');
 }
 function showDoctor(id) {
@@ -72,7 +76,7 @@ function openBooking(serviceTitle, doctorName = null) {
 function showService(id) {
   activeService = services.find(service => service.id === id);
   if (!activeService) return;
-  $('#service-detail').innerHTML = `<div class="detail-icon" style="background:${activeService.bg};color:${activeService.color}">${icon(activeService.icon)}</div><span class="eyebrow">رعاية تناسب احتياجات طفلك</span><h2 id="service-dialog-title">${activeService.title}</h2><p>${activeService.description}</p><div class="detail-tags">${activeService.tags.map(tag => `<span>${tag}</span>`).join('')}</div><p class="detail-note">يحدد الأخصائي ملاءمة الخدمة بعد التقييم. تواصل مع المركز لمعرفة التفاصيل والمواعيد المتاحة.</p>`;
+  $('#service-detail').innerHTML = `<div class="detail-icon" style="background:${activeService.bg};color:${activeService.color}">${serviceIcon(activeService.id)}</div><span class="eyebrow">رعاية تناسب احتياجات طفلك</span><h2 id="service-dialog-title">${activeService.title}</h2><section class="service-detail-section"><h3>ما هي الخدمة؟</h3><p>${activeService.description}</p></section>${serviceDetails[activeService.id].map((text,index)=>`<section class="service-detail-section"><h3>${["لمن تناسب؟","كيف يبدأ التقييم؟","ماذا يحدث في الجلسات؟","أهداف البرنامج"][index]}</h3><p>${text}</p></section>`).join("")}<div class="detail-tags">${activeService.tags.map(tag => `<span>${tag}</span>`).join('')}</div><p class="detail-note">يحدد الأخصائي ملاءمة الخدمة بعد التقييم. تواصل مع المركز لمعرفة التفاصيل والمواعيد المتاحة.</p>`;
   showDialog($('#service-dialog'));
 }
 
@@ -85,7 +89,7 @@ function notify(message) {
 
 document.addEventListener('click', event => {
   const booking = event.target.closest('[data-book]');
-  if (booking) openBooking();
+  if (booking) openBooking(booking.dataset.book || undefined);
   const doctor = event.target.closest('[data-doctor]');
   if (doctor) showDoctor(doctor.dataset.doctor);
   const service = event.target.closest('[data-service]');
@@ -118,9 +122,9 @@ $$('dialog').forEach(dialog => {
   });
 });
 
-$('#open-guide').addEventListener('click',() => showDialog($('#guide-dialog')));
-$('#book-doctor').addEventListener('click',() => openBooking(undefined,activeDoctor?.sample ? null : activeDoctor?.name));
-$('#book-service').addEventListener('click',() => openBooking(activeService?.title));
+$('#open-guide')?.addEventListener('click',() => showDialog($('#guide-dialog')));
+$('#book-doctor')?.addEventListener('click',() => openBooking(undefined,activeDoctor?.sample ? null : activeDoctor?.name));
+$('#book-service')?.addEventListener('click',() => openBooking(activeService?.title));
 $('#review-back').addEventListener('click',() => {resetBookingReview();$('#parent-name').focus();});
 
 function localDate() {
@@ -160,7 +164,7 @@ $('#booking-form').addEventListener('submit',event => {
   $('#whatsapp-send').focus();
 });
 
-$('#copy-address').addEventListener('click',async () => {
+$('#copy-address')?.addEventListener('click',async () => {
   const address = 'مركز تكامل – دمنهور، شارع عبد السلام الشاذلي، أول الكوبري العلوي، بجوار أتيليه روزي وأعلى صيدلية المحافظة.';
   try {
     if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(address);
@@ -182,6 +186,7 @@ renderDoctors();
 
 // Native horizontal scrolling supports touch, trackpads and focused controls.
 const teamTrack = $('#team-grid');
+if (teamTrack) {
 const phoneCarousel = window.matchMedia('(max-width: 760px)');
 const teamCards = $$('.doctor-card', teamTrack);
 let teamIndex = 0;
@@ -217,7 +222,25 @@ function configureTeamCarousel(){teamTrack.tabIndex=phoneCarousel.matches?0:-1;s
 phoneCarousel.addEventListener('change',configureTeamCarousel);
 window.addEventListener('resize',syncTeamCarousel,{passive:true});
 configureTeamCarousel();
+}
 
 // Manual hero slideshow: no automatic motion or unexpected image changes.
 const heroCaptions=[['أهلًا بك في مركز تكامل','مساحة للرعاية، وبداية لخطوة جديدة.'],['كل حركة، خطوة لقدّام','العلاج الطبيعي وتأهيل الأطفال'],['قدرات صغيرة، وأحلام كبيرة','تنمية المهارات والتعلّم من خلال اللعب']];
 $$('[data-hero-dot]').forEach(dot=>dot.addEventListener('click',()=>{const index=Number(dot.dataset.heroDot);$$('[data-hero-slide]').forEach((slide,i)=>slide.hidden=i!==index);$$('[data-hero-dot]').forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));$('#hero-caption-title').textContent=heroCaptions[index][0];$('#hero-caption-text').textContent=heroCaptions[index][1];}));
+
+// Language preference: translate only registered interface strings.
+const translations = {
+ ar: {home:'الرئيسية',services:'خدماتنا',team:'فريقنا',visit:'زورنا',packages:'الباقات',articles:'مقالات ونصائح',book:'احجز موعدك',privacy:'سياسة الخصوصية',terms:'الشروط والأحكام'},
+ en: {home:'Home',services:'Services',team:'Our team',visit:'Visit us',packages:'Packages',articles:'Parent tips',book:'Book a visit',privacy:'Privacy policy',terms:'Terms'}
+};
+function setLanguage(language) {
+ const lang=language==='en'?'en':'ar';
+ document.documentElement.lang=lang; document.documentElement.dir=lang==='ar'?'rtl':'ltr';
+ document.querySelectorAll('[data-i18n]').forEach(el=>{const value=translations[lang][el.dataset.i18n];if(value)el.textContent=value;});
+ document.querySelectorAll('[data-language]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.language===lang)));
+ const note=document.querySelector('.language-notice'); if(note)note.hidden=lang!=='en';
+ try{localStorage.setItem('takamol-language',lang);}catch{/* Storage can be unavailable in private contexts. */}
+}
+document.querySelectorAll('[data-language]').forEach(button=>button.addEventListener('click',()=>setLanguage(button.dataset.language)));
+let savedLanguage='ar';try{savedLanguage=localStorage.getItem('takamol-language')||'ar';}catch{}
+setLanguage(savedLanguage);

@@ -11,12 +11,16 @@ site.search='';site.hash='';
 if (site.pathname.endsWith('/index.html')) site.pathname=site.pathname.slice(0,-10);
 if (!site.pathname.endsWith('/')) site.pathname+='/';
 const escape=value=>value.replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;');
-const file=path.join(__dirname,'..','index.html');
+const root=path.join(__dirname,'..');
+for (const name of fs.readdirSync(root).filter(name=>name.endsWith('.html'))) {
+const file=path.join(root,name);
+const page=escape(new URL(name==='index.html'?'':name,site).href);
 let html=fs.readFileSync(file,'utf8');
 const image=escape(new URL('assets/images/hero.jpeg',site).href);
 html=html.replace(/(<meta property="og:image" content=")[^"]*(">)/,`$1${image}$2`);
 html=html.replace(/(<meta name="twitter:image" content=")[^"]*(">)/,`$1${image}$2`);
 html=html.replace(/^.*<meta property="og:url"[^>]*>\r?\n/gm,'').replace(/^.*<link rel="canonical"[^>]*>\r?\n/gm,'');
-html=html.replace('  <meta property="og:type"',`  <link rel="canonical" href="${escape(site.href)}">\n  <meta property="og:url" content="${escape(site.href)}">\n  <meta property="og:type"`);
+html=html.replace('  <meta property="og:type"',`  <link rel="canonical" href="${page}">\n  <meta property="og:url" content="${page}">\n  <meta property="og:type"`);
 fs.writeFileSync(file,html);
+}
 console.log('Social preview URLs set to '+site.href);
