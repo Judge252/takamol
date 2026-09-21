@@ -355,3 +355,25 @@ body .service-card-icon svg{width:43px;height:43px}.detail-icon .service-illustr
  .article-card h3{font-size:19px}
 }
 @media(prefers-reduced-motion:reduce){body .btn,body .dock-book,.text-button{transition:none}body .btn:hover,body .dock-book:hover{transform:none}}
+/* English uses the same components and palette, with natural reading direction. */
+html[lang=en] body{font-family:Arial,Helvetica,sans-serif}
+html[lang=en] h1,html[lang=en] h2,html[lang=en] h3,html[lang=en] .btn{font-family:Arial,Helvetica,sans-serif;letter-spacing:normal}
+html[lang=en] .hero h1{line-height:1.35}
+html[lang=en] .section-head h2,html[lang=en] .page-intro h1{line-height:1.5}
+html[lang=en] .hero-description,html[lang=en] .section-description{line-height:1.85}
+html[dir=ltr] .brand-caption,html[dir=ltr] .footer-slogan{text-align:left}
+html[dir=ltr] .service-card,html[dir=ltr] .service-detail-section{text-align:left}
+html[dir=ltr] .service-motif{left:auto;right:18px}
+html[dir=ltr] .close-dialog{left:auto;right:16px}
+html[dir=ltr] .dialog-shell>.eyebrow{padding-right:32px;padding-left:12px}
+html[dir=ltr] .hero-kite{right:20px;left:auto}
+html[dir=ltr] .hero-cloud{right:10px;left:auto}
+html[dir=ltr] .hero-blocks{right:18px;left:auto}
+html[dir=ltr] .hero-actions svg,html[dir=ltr] .text-button>svg,html[dir=ltr] .btn>svg:has(use[href="#i-arrow"]){transform:rotate(180deg)}
+html[lang=en] .desktop-nav{gap:14px}
+@media(max-width:1100px) and (min-width:761px){html[lang=en] .desktop-nav{gap:9px;font-size:12px}html[lang=en] .header-inner{gap:8px}html[lang=en] .site-header .brand img{width:75px}}
+@media(max-width:760px){html[lang=en] .service-card h3{font-size:15px;line-height:1.55}html[lang=en] .service-card p{line-height:1.65}html[lang=en] .hero h1{font-size:clamp(30px,8vw,42px)}html[lang=en] .dock-book{font-size:12px}html[lang=en] .mobile-extra-nav{gap:22px}html[lang=en] .site-header .btn-small{font-size:11px}}
+html[dir=ltr] .team-grid .doctor-card{direction:ltr}
+html[dir=ltr] .review-row strong,html[dir=ltr] .footer-phone{text-align:left}
+html[dir=ltr] .service-card .text-button{text-align:left}
+html[dir=ltr] .clinic-caption a svg{transform:rotate(180deg)}

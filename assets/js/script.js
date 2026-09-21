@@ -50,6 +50,7 @@ function showDoctor(id) {
 function showDialog(dialog, opener = document.activeElement) {
   if (!opener?.closest('dialog')) dialogOpener = opener;
   $$('dialog[open]').forEach(open => open.close());
+  window.TakamolI18n.translate(dialog);
   dialog.showModal();
   document.body.style.overflow = 'hidden';
 }
@@ -134,38 +135,51 @@ function localDate() {
 $('#preferred-date').min = localDate();
 $('#parent-name').addEventListener('input', () => $('#parent-name').setCustomValidity(''));
 $('#preferred-date').addEventListener('input', () => $('#preferred-date').setCustomValidity(''));
+$('#parent-name').addEventListener('invalid', () => {
+  if (!$('#parent-name').value.trim()) $('#parent-name').setCustomValidity(window.TakamolI18n.t('من فضلك اكتب اسم ولي الأمر.'));
+});
+$('#preferred-date').addEventListener('invalid', () => {
+  if ($('#preferred-date').validity.rangeUnderflow) $('#preferred-date').setCustomValidity(window.TakamolI18n.t('اختر اليوم أو يومًا قادمًا.'));
+});
 
-$('#booking-form').addEventListener('submit',event => {
+function reviewBooking(event) {
   event.preventDefault();
   const nameInput = $('#parent-name');
   const dateInput = $('#preferred-date');
-  nameInput.setCustomValidity(nameInput.value.trim() ? '' : 'من فضلك اكتب اسم ولي الأمر.');
+  nameInput.setCustomValidity(nameInput.value.trim() ? '' : window.TakamolI18n.t('من فضلك اكتب اسم ولي الأمر.'));
   dateInput.min = localDate();
-  dateInput.setCustomValidity(dateInput.value && dateInput.value < localDate() ? 'اختر اليوم أو يومًا قادمًا.' : '');
-  if (!event.target.reportValidity()) return;
+  dateInput.setCustomValidity(dateInput.value && dateInput.value < localDate() ? window.TakamolI18n.t('اختر اليوم أو يومًا قادمًا.') : '');
+  if (!$('#booking-form').reportValidity()) return;
   const name = nameInput.value.trim();
   const service = $('#booking-service').value;
-  const date = dateInput.value ? new Intl.DateTimeFormat('ar-EG',{dateStyle:'full'}).format(new Date(`${dateInput.value}T12:00:00`)) : 'بالتنسيق مع المركز';
+  const date = dateInput.value ? new Intl.DateTimeFormat(window.TakamolI18n.language==='en'?'en-GB':'ar-EG',{dateStyle:'full'}).format(new Date(`${dateInput.value}T12:00:00`)) : 'بالتنسيق مع المركز';
   const period = $('#preferred-period').value;
   const summary = $('#review-summary');
   summary.replaceChildren();
   [['ولي الأمر',name],['الخدمة',service],...(preferredDoctor ? [['الطبيب المطلوب',preferredDoctor]] : []),['اليوم المفضّل',date],['الفترة',period]].forEach(([label,value]) => {
     const row = document.createElement('div');row.className = 'review-row';
     const key = document.createElement('span');key.textContent = label;
-    const text = document.createElement('strong');text.textContent = value;
+    const text = document.createElement('strong');text.textContent = label==='ولي الأمر' ? value : window.TakamolI18n.t(value);
+    text.dataset.i18nIgnore = ''; // Never translate user-entered names or generated date strings.
     row.append(key,text);summary.append(row);
   });
-  const message = `مرحبًا مركز تكامل، أرغب في طلب موعد.\nاسم ولي الأمر: ${name}\nالخدمة: ${service}${preferredDoctor ? '\nالطبيب المطلوب: ' + preferredDoctor : ''}\nاليوم المفضّل: ${date}\nالفترة المفضّلة: ${period}\nأرجو إبلاغي بالمواعيد المتاحة والتكلفة وتأكيد الموعد. شكرًا لكم.`;
+  const arabicMessage = `مرحبًا مركز تكامل، أرغب في طلب موعد.\nاسم ولي الأمر: ${name}\nالخدمة: ${service}${preferredDoctor ? '\nالطبيب المطلوب: ' + preferredDoctor : ''}\nاليوم المفضّل: ${date}\nالفترة المفضّلة: ${period}\nأرجو إبلاغي بالمواعيد المتاحة والتكلفة وتأكيد الموعد. شكرًا لكم.`;
+  const t=window.TakamolI18n.t;
+  const message=window.TakamolI18n.language==='en'
+    ? `Hello Takamol Center, I would like to request an appointment.\nParent or guardian: ${name}\nService: ${t(service)}${preferredDoctor ? '\nRequested clinician: '+t(preferredDoctor) : ''}\nPreferred day: ${t(date)}\nPreferred time: ${t(period)}\nPlease let me know the available times and cost, and confirm the appointment. Thank you.`
+    : arabicMessage;
   $('#whatsapp-send').href = `https://wa.me/201068681114?text=${encodeURIComponent(message)}`;
   $('#booking-form').hidden = true;
   $('#booking-review').hidden = false;
   $('#progress-one').classList.remove('current');
   $('#progress-two').classList.add('current');
-  $('#whatsapp-send').focus();
-});
+  window.TakamolI18n.translate($('#booking-dialog'));
+  if (!event.languageChange) $('#whatsapp-send').focus();
+}
+$('#booking-form').addEventListener('submit',reviewBooking);
 
 $('#copy-address')?.addEventListener('click',async () => {
-  const address = 'مركز تكامل – دمنهور، شارع عبد السلام الشاذلي، أول الكوبري العلوي، بجوار أتيليه روزي وأعلى صيدلية المحافظة.';
+  const address = window.TakamolI18n.t('مركز تكامل – دمنهور، شارع عبد السلام الشاذلي، أول الكوبري العلوي، بجوار أتيليه روزي وأعلى صيدلية المحافظة.');
   try {
     if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(address);
     else {
@@ -228,19 +242,10 @@ configureTeamCarousel();
 const heroCaptions=[['أهلًا بك في مركز تكامل','مساحة للرعاية، وبداية لخطوة جديدة.'],['كل حركة، خطوة لقدّام','العلاج الطبيعي وتأهيل الأطفال'],['قدرات صغيرة، وأحلام كبيرة','تنمية المهارات والتعلّم من خلال اللعب']];
 $$('[data-hero-dot]').forEach(dot=>dot.addEventListener('click',()=>{const index=Number(dot.dataset.heroDot);$$('[data-hero-slide]').forEach((slide,i)=>slide.hidden=i!==index);$$('[data-hero-dot]').forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));$('#hero-caption-title').textContent=heroCaptions[index][0];$('#hero-caption-text').textContent=heroCaptions[index][1];}));
 
-// Language preference: translate only registered interface strings.
-const translations = {
- ar: {home:'الرئيسية',services:'خدماتنا',team:'فريقنا',visit:'زورنا',packages:'الباقات',articles:'مقالات ونصائح',book:'احجز موعدك',privacy:'سياسة الخصوصية',terms:'الشروط والأحكام'},
- en: {home:'Home',services:'Services',team:'Our team',visit:'Visit us',packages:'Packages',articles:'Parent tips',book:'Book a visit',privacy:'Privacy policy',terms:'Terms'}
-};
-function setLanguage(language) {
- const lang=language==='en'?'en':'ar';
- document.documentElement.lang=lang; document.documentElement.dir=lang==='ar'?'rtl':'ltr';
- document.querySelectorAll('[data-i18n]').forEach(el=>{const value=translations[lang][el.dataset.i18n];if(value)el.textContent=value;});
- document.querySelectorAll('[data-language]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.language===lang)));
- const note=document.querySelector('.language-notice'); if(note)note.hidden=lang!=='en';
- try{localStorage.setItem('takamol-language',lang);}catch{/* Storage can be unavailable in private contexts. */}
-}
-document.querySelectorAll('[data-language]').forEach(button=>button.addEventListener('click',()=>setLanguage(button.dataset.language)));
-let savedLanguage='ar';try{savedLanguage=localStorage.getItem('takamol-language')||'ar';}catch{}
-setLanguage(savedLanguage);
+
+// Keep an open review and validation messages in sync without resetting inputs.
+document.addEventListener('takamol:languagechange',()=>{
+ $('#parent-name').setCustomValidity(''); $('#preferred-date').setCustomValidity('');
+ if(!$('#booking-review').hidden)reviewBooking({preventDefault(){},languageChange:true});
+});
+window.TakamolI18n.init();

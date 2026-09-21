@@ -48,7 +48,16 @@ Verification: source comparison confirmed unchanged page copy, service/doctor da
 - Larger 28px mobile navigation icons and 48px+ targets, shared button tokens, more Arabic heading leading, and stronger caption contrast without dimming the full photo.
 - Added packages.html, privacy.html, terms.html and three article-*.html pages. Articles cite ASHA, APTA/ChoosePT and UNICEF. Eight parent FAQs are included.
 - Packages are illustrative: the clinic must provide approved prices, session counts and durations. No online-session availability, payment method or refund terms are invented.
-- Arabic is the default. The header switch translates registered interface keys in script.js/translations, persists takamol-language in localStorage and switches document direction. Untranslated clinical content remains explicitly Arabic RTL. Full English content is not yet provided.
+- Full Arabic/English support now covers all seven pages and dynamic content. See the bilingual implementation notes below.
 - Static pages share the existing booking dialog and script. Common header/footer markup is repeated in HTML; update all seven pages when changing shared navigation.
 - Run node scripts/set-public-url.cjs https://your-domain.com/ after the public URL is known. The helper now sets unique canonical/OG URLs for every root HTML page. Public social preview crawling is not verified on localhost.
 - Verification covered seven widths (320, 360, 390, 430, 768, 1024, 1440), local navigation, all page booking reviews, package selection, language switching and persistence, hero/service/doctor dialogs, and mobile team controls. No WhatsApp messages were sent.
+
+
+## Full Arabic / English support
+- assets/js/translations.js contains 398 source-keyed {ar, en} entries for visible copy, accessible labels and SEO metadata. Update the paired entries when changing source copy.
+- assets/js/i18n.js translates text nodes and supported attributes without replacing markup or event handlers. A MutationObserver handles new dialog, slider and notification content. It never translates input values, user names, URLs or service identifiers.
+- Arabic is the default. The header switch updates document/main/dialog language and direction, persists takamol-language in localStorage, and restores it after refresh. The existing Arabic logo artwork and clinic photos are unchanged.
+- Booking summaries, validation, dates, WhatsApp messages and copied addresses use the selected language. Switching during an open review preserves form values and regenerates the localized summary.
+- Tests passed on all seven pages at 320, 360, 390, 430, 768, 1024 and 1440 pixels. Checks covered untranslated text/attributes, service and doctor dialogs, all slider captions, form preservation, localized booking messages, Arabic restoration and refresh persistence.
+- SEO title/description/keywords and Open Graph/Twitter copy switch dynamically. Static HTML remains Arabic for no-JavaScript access and social crawlers; no separate English URL or server-rendered English page is generated.
