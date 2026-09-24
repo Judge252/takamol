@@ -377,3 +377,23 @@ html[dir=ltr] .team-grid .doctor-card{direction:ltr}
 html[dir=ltr] .review-row strong,html[dir=ltr] .footer-phone{text-align:left}
 html[dir=ltr] .service-card .text-button{text-align:left}
 html[dir=ltr] .clinic-caption a svg{transform:rotate(180deg)}
+
+/* Consultation and training requests */
+.hero-slides .hero-image{opacity:0;visibility:hidden;transition:opacity .8s ease,visibility .8s ease;mix-blend-mode:normal}
+.hero-slides .hero-image.is-active{opacity:1;visibility:visible}
+.lead-section{padding-top:62px}
+.training-section{background:radial-gradient(ellipse at 50% 0,#18bba70a,transparent 65%),#0e1421;border-block:1px solid #ffffff0c}
+.consultation-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:24px}
+.consultation-card,.lead-form{background:linear-gradient(155deg,#172033eb,#0f1624f5);border:1px solid #ffffff1b;box-shadow:0 14px 38px #0003;border-radius:23px}
+.consultation-card{padding:25px;min-width:0}.consultation-number{color:var(--teal);font:700 15px var(--heading)}
+.consultation-card h3{font-size:20px;color:var(--gold-light);margin:13px 0 9px}.consultation-card p{color:#c1cede;font-size:16px;line-height:1.9}
+.lead-form{padding:30px;max-width:1000px;margin-inline:auto}.lead-form-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.lead-form-heading h3{font-size:25px;margin-top:11px}.lead-form-heading p{color:var(--muted);font-size:15px;line-height:1.8;max-width:330px}
+.lead-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px 20px;margin:15px 0}.lead-fields>div{min-width:0}.lead-fields label{font-size:15px;margin:14px 0 8px}.lead-fields label small{font-size:12px}.lead-fields input,.lead-fields select,.lead-fields textarea{font-size:16px;min-height:50px;padding:11px 14px;border-radius:11px}
+.lead-fields textarea{width:100%;min-width:0;min-height:104px;resize:vertical;color-scheme:dark;background:#101a2a;color:#ecf2fa;border:1px solid #ffffff23;font-family:inherit;line-height:1.8}
+.lead-fields input:focus,.lead-fields select:focus,.lead-fields textarea:focus{outline:2px solid var(--teal);outline-offset:2px}.field-wide{grid-column:1/-1}
+.lead-note{color:#c3e3df;background:#18bba70b;border:1px solid #18bba729;border-radius:11px;padding:12px 15px;font-size:15px;line-height:1.9;margin:16px 0 20px}
+.lead-form>.btn{min-height:52px;padding-inline:24px;font-size:16px}.lead-form .privacy-note{text-align:start;font-size:13px;line-height:1.8}
+.article-card p{font-size:max(15px,1rem)}.footer-slogan,.footer-social,.footer-phone small,.footer-bottom{font-size:13px;line-height:1.7}.btn,.text-button{font-size:max(14px,1rem)}
+@media(max-width:760px){.consultation-grid{grid-template-columns:1fr;gap:11px}.consultation-card{padding:18px 20px}.consultation-card h3{font-size:18px;margin:5px 0}.consultation-card p{font-size:15px}.lead-form{padding:22px 18px}.lead-form-heading{display:block}.lead-form-heading h3{font-size:22px}.lead-form-heading p{max-width:none;margin-top:8px}.lead-fields{grid-template-columns:1fr;gap:0}.lead-fields label{font-size:14px}.lead-note{font-size:14px}.lead-form>.btn{width:100%}.lead-form .privacy-note{font-size:12px}.footer-social{font-size:13px}}
+@media(prefers-reduced-motion:reduce){.hero-slides .hero-image{transition:none}}

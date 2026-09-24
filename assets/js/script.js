@@ -238,9 +238,58 @@ window.addEventListener('resize',syncTeamCarousel,{passive:true});
 configureTeamCarousel();
 }
 
-// Manual hero slideshow: no automatic motion or unexpected image changes.
-const heroCaptions=[['أهلًا بك في مركز تكامل','مساحة للرعاية، وبداية لخطوة جديدة.'],['كل حركة، خطوة لقدّام','العلاج الطبيعي وتأهيل الأطفال'],['قدرات صغيرة، وأحلام كبيرة','تنمية المهارات والتعلّم من خلال اللعب']];
-$$('[data-hero-dot]').forEach(dot=>dot.addEventListener('click',()=>{const index=Number(dot.dataset.heroDot);$$('[data-hero-slide]').forEach((slide,i)=>slide.hidden=i!==index);$$('[data-hero-dot]').forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));$('#hero-caption-title').textContent=heroCaptions[index][0];$('#hero-caption-text').textContent=heroCaptions[index][1];}));
+// Clinic gallery: the first image remains visible if JavaScript is unavailable.
+const heroSlides = $$('[data-hero-slide]');
+const heroDots = $$('[data-hero-dot]');
+let heroIndex = 0;
+let heroTimer;
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+function selectHero(index) {
+  heroIndex = index;
+  heroSlides.forEach((slide, i) => {
+    slide.classList.toggle('is-active', i === index);
+    slide.setAttribute('aria-hidden', String(i !== index));
+  });
+  heroDots.forEach((dot, i) => dot.setAttribute('aria-pressed', String(i === index)));
+}
+function startHeroTimer() {
+  clearInterval(heroTimer);
+  if (!heroSlides.length || reducedMotion.matches || document.hidden) return;
+  heroTimer = setInterval(() => selectHero((heroIndex + 1) % heroSlides.length), 5500);
+}
+heroDots.forEach(dot => dot.addEventListener('click', () => {
+  selectHero(Number(dot.dataset.heroDot));
+  startHeroTimer();
+}));
+document.addEventListener('visibilitychange', startHeroTimer);
+reducedMotion.addEventListener('change', startHeroTimer);
+startHeroTimer();
+
+// These forms prepare a message; visitors send it themselves in WhatsApp.
+const leadFields = {
+  online: [['name','اسم المريض','Patient name'],['age','العمر','Age'],['country','البلد','Country'],['phone','رقم واتساب','WhatsApp number'],['type','نوع الجلسة','Session type'],['case','وصف الحالة','Case description'],['time','الوقت المفضّل للجلسة','Preferred session time']],
+  training: [['name','الاسم','Name'],['phone','رقم الهاتف','Phone'],['college','الكلية / الجامعة','College / University'],['year','سنة التخرج','Graduation year'],['specialty','التخصص','Specialty'],['field','مجال التدريب','Training field'],['email','البريد الإلكتروني','Email'],['notes','ملاحظات','Notes']]
+};
+['online','training'].forEach(kind => {
+  const form = $(`#${kind}-form`);
+  form?.addEventListener('submit', event => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+    const lang = window.TakamolI18n.language;
+    const data = new FormData(form);
+    const title = kind === 'online'
+      ? (lang === 'en' ? 'Hello Takamol Center, I would like to request an online session.' : 'مرحبًا مركز تكامل، أرغب في طلب جلسة أونلاين.')
+      : (lang === 'en' ? 'Hello Takamol Center, I would like to apply for training.' : 'مرحبًا مركز تكامل، أرغب في التقديم للتدريب.');
+    const lines = leadFields[kind].flatMap(([field, ar, en]) => {
+      const raw = String(data.get(field) || '').trim();
+      if (!raw) return [];
+      const value = field === 'type' ? window.TakamolI18n.t(raw) : raw;
+      return [`${lang === 'en' ? en : ar}: ${value}`];
+    });
+    const message = [title, ...lines].join('\n');
+    window.open(`https://wa.me/201068681114?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+  });
+});
 
 
 // Keep an open review and validation messages in sync without resetting inputs.
