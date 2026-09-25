@@ -179,11 +179,13 @@ label{font-size:15px}input,select{font-size:16px;height:51px}input::placeholder{
  .team-carousel-dots button{width:34px;height:44px;padding:0;display:grid;place-items:center}
  .team-carousel-dots button:after{content:'';width:7px;height:7px;border-radius:9px;background:#b8c9d9;transition:width .2s,background .2s}
  .team-carousel-dots button[aria-current=true]:after{width:22px;background:var(--blue)}
+ .team-carousel-dots.dots-compact button{width:18px}
  .team-swipe-hint{grid-column:1/-1;text-align:center;font-size:13px;color:var(--muted);font-weight:600}
 }
 @media(max-width:359px){
  .service-grid{gap:9px}.service-card-body{padding:12px 10px}.service-card h3{font-size:14px}.service-card p{font-size:12px}.service-card .text-button{font-size:11px}
  .team-grid .doctor-photo,.team-grid .doctor-placeholder{height:220px}
+ .team-carousel-dots.dots-compact button{width:14px}
 }
 @media(prefers-reduced-motion:reduce){.team-grid{scroll-behavior:auto}}
 /* Shared content-page layout and accessible interface controls. */

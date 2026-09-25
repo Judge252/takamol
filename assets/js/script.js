@@ -26,24 +26,35 @@ function renderServices() {
   $('#service-grid').innerHTML = services.map(service => `<article class="service-card" id="service-${service.id}" style="--card-color:${service.color};--card-bg:${service.bg}"><button class="service-photo-button" data-service="${service.id}" aria-label="تفاصيل ${service.title}"><img src="assets/images/${service.title}.webp" alt="${service.title}" width="800" height="533" loading="lazy" decoding="async"></button><div class="service-card-body"><svg class="doodle service-motif" aria-hidden="true" focusable="false"><use href="#d-${service.id==='learning'?'blocks':service.id}"/></svg><span class="service-card-icon">${serviceIcon(service.id)}</span><h3>${service.title}</h3><p>${service.short}</p><button class="text-button" data-service="${service.id}">اعرف أكثر عن الخدمة ${icon('arrow')}</button></div></article>`).join('');
 }
 
-// Replace pending profiles when the clinic provides approved names and details.
+// Clinic-approved team. Members without qualifications keep a summary profile until details are provided.
 const doctors = [
-  {id:'mina',name:'د. مينا رضا',role:'مدرس واستشاري العلاج الطبيعي للأطفال وجراحاتها',image:'assets/images/د. مينا رضا.jpeg',qualifications:['دكتوراه العلاج الطبيعي — جامعة القاهرة، مصر','ماجستير العلوم العصبية والتصوير العصبي — جامعة بوردو، فرنسا']},
-  {id:'member-2',name:'د. أحمد سامح',sample:true,role:'أخصائي العلاج الطبيعي والتأهيل الحركي للأطفال',qualifications:['بكالوريوس العلاج الطبيعي — مؤهل تجريبي للتصميم','اهتمامات نموذجية: التوازن والتناسق الحركي وتنمية المهارات الحركية']},
-  {id:'member-3',name:'د. سارة عادل',sample:true,role:'أخصائية التخاطب وتنمية مهارات التواصل',qualifications:['تخصص التخاطب وتنمية اللغة — بيانات تجريبية للتصميم','اهتمامات نموذجية: التواصل واللغة والوعي الصوتي لدى الأطفال']}
+  {id:'mina',name:'د. مينا رضا',category:'العلاج الطبيعي للأطفال',role:'مدرس واستشاري العلاج الطبيعي للأطفال وجراحاتها',image:'assets/images/د. مينا رضا.jpeg',width:747,height:946,qualifications:['دكتوراه العلاج الطبيعي — جامعة القاهرة، مصر','ماجستير العلوم العصبية والتصوير العصبي — جامعة بوردو، فرنسا']},
+  {id:'khaled',name:'د. خالد عبدالهادي',category:'دكتور علاج طبيعي',role:'أخصائي العلاج الطبيعي ومدير قسم العلاج المائي',image:'assets/images/خالد عبدالهادي.jpeg',width:1254,height:1254},
+  {id:'yumna',name:'د. يمنى مصطفى',category:'دكتور علاج طبيعي',role:'دكتور علاج طبيعي',image:'assets/images/يمني مصطفي.jpeg',width:1254,height:1254},
+  {id:'rahinda',name:'د. راهندا محمد الشيخ',category:'دكتور علاج طبيعي',role:'دكتور علاج طبيعي',image:'assets/images/راهندا.jpeg',width:1254,height:1254},
+  {id:'shahd',name:'أ. شهد جبالي',category:'التخاطب والتواصل',role:'أخصائية تخاطب تخصص OPT',image:'assets/images/ا . شهدً جبالى.jpeg',width:1254,height:1254},
+  {id:'amira',name:'أميرة محمود داود',category:'تنمية المهارات وصعوبات التعلّم',role:'أخصائية تنمية مهارات',image:'assets/images/أميره محمود داود.jpeg',width:1254,height:1254},
+  {id:'marwa',name:'مروة محمد زلابية',category:'تنمية المهارات وصعوبات التعلّم',role:'أخصائية صعوبات تعلم<br>برنامج ستار لتنمية القدرات الأكاديمية',image:'assets/images/مروة محمد.jpeg',width:1254,height:1254},
+  {id:'menatallah',name:'منة الله علواني قاسم',category:'تنمية المهارات وصعوبات التعلّم',role:'أخصائية تنمية مهارات إدراكية',image:'assets/images/منه الله علواني.jpeg',width:1254,height:1254},
+  {id:'shorouk',name:'شروق خميس نبوي',category:'التكامل الحسي',role:'أخصائية تكامل حسي',image:'assets/images/شروق خميس.jpeg',width:1254,height:1254},
+  {id:'fatma',name:'فاطمة عبداللطيف الحسني',category:'التكامل الحسي',role:'أخصائية تكامل حسي (تخطيط حركي وقصور بصري)',image:'assets/images/فاطمة حسني.jpeg',width:1254,height:1254},
+  {id:'basmala',name:'بسملة حازم البلكي',category:'التخاطب والتواصل',role:'أخصائية تخاطب',image:'assets/images/بسمله حازم.jpeg',width:1254,height:1254},
+  {id:'eman',name:'إيمان حسن عبدالعزيز',category:'تنمية المهارات وصعوبات التعلّم',role:'تنمية مهارات وتعديل سلوك',image:'assets/images/ايمان حسن.jpeg',width:1254,height:1254},
+  {id:'rawan',name:'روان محمد موسى',category:'التخاطب والتواصل',role:'أخصائية تخاطب',image:'assets/images/روان محمد.jpeg',width:1254,height:1254}
 ];
 let activeDoctor = null;
 function renderDoctors() {
   if (!$('#team-grid')) return;
-  $('#team-grid').innerHTML = doctors.map((doctor,index) => `<article class="doctor-card${doctor.pending?' pending-profile':''}">${doctor.image?`<img class="doctor-photo" src="${doctor.image}" alt="${doctor.name}" width="747" height="946" loading="lazy">`:`<div class="doctor-placeholder" aria-hidden="true">${icon('heart')}<span>فريق تكامل</span></div>`}<div class="doctor-card-body">${doctor.sample?`<span class="sample-label">ملف تجريبي</span>`:``}<span class="eyebrow">${doctor.sample?'نموذج لعضو الفريق':'العلاج الطبيعي للأطفال'}</span><h3>${doctor.name}</h3><p>${doctor.pending?'سيُضاف الاسم والتخصص والمؤهلات قريبًا.':doctor.role}</p><button class="btn btn-outline" data-doctor="${doctor.id}" aria-label="${'الملف الكامل — '+doctor.name}">${doctor.pending?'حالة الملف':'الملف الكامل'} ${icon('arrow')}</button></div></article>`).join('');
+  $('#team-grid').innerHTML = doctors.map(doctor => `<article class="doctor-card">${doctor.image?`<img class="doctor-photo" src="${doctor.image}" alt="${doctor.name}" width="${doctor.width||747}" height="${doctor.height||946}" loading="lazy">`:`<div class="doctor-placeholder" aria-hidden="true">${icon('heart')}<span>فريق تكامل</span></div>`}<div class="doctor-card-body"><span class="eyebrow">${doctor.category}</span><h3>${doctor.name}</h3><p>${doctor.role}</p><button class="btn btn-outline" data-doctor="${doctor.id}" aria-label="${'الملف الكامل — '+doctor.name}">الملف الكامل ${icon('arrow')}</button></div></article>`).join('');
 }
 function showDoctor(id) {
   activeDoctor = doctors.find(doctor => doctor.id === id);
   if (!activeDoctor) return;
-  $('#doctor-detail').innerHTML = activeDoctor.pending
-    ? `<div class="detail-icon">${icon('heart')}</div><span class="eyebrow">فريق تكامل</span><h2 id="doctor-dialog-title">تفاصيل هذا العضو قريبًا</h2><p class="muted">سيُضاف الاسم والتخصص والمؤهلات إلى هذا الملف. يمكنك التواصل مع المركز للتعرّف على الأخصائي المناسب لطفلك.</p>`
-    : `${activeDoctor.image?`<img class="doctor-dialog-photo" src="${activeDoctor.image}" alt="${activeDoctor.name}" width="747" height="946">`:``}${activeDoctor.sample?`<p class="sample-label">ملف تجريبي: الاسم والتخصص والمؤهلات أمثلة للتصميم وليست بيانات عضو حقيقي بالمركز.</p>`:``}<span class="eyebrow">تعرف على طبيبك</span><h2 id="doctor-dialog-title">${activeDoctor.name}</h2><p class="doctor-role">${activeDoctor.role}</p><h3 class="qualifications-heading">المؤهلات العلمية</h3><ul class="credentials">${activeDoctor.qualifications.map(item=>`<li>${icon('check')}<span>${item}</span></li>`).join('')}</ul>`;
-  $('#book-doctor').textContent = activeDoctor.sample ? 'اطلب موعدًا بالمركز' : 'اطلب موعدًا مع د. مينا رضا';
+  const photo = activeDoctor.image?`<img class="doctor-dialog-photo" src="${activeDoctor.image}" alt="${activeDoctor.name}" width="${activeDoctor.width||747}" height="${activeDoctor.height||946}">`:'';
+  $('#doctor-detail').innerHTML = activeDoctor.qualifications
+    ? `${photo}<span class="eyebrow">تعرف على طبيبك</span><h2 id="doctor-dialog-title">${activeDoctor.name}</h2><p class="doctor-role">${activeDoctor.role}</p><h3 class="qualifications-heading">المؤهلات العلمية</h3><ul class="credentials">${activeDoctor.qualifications.map(item=>`<li>${icon('check')}<span>${item}</span></li>`).join('')}</ul>`
+    : `${photo}<span class="eyebrow">${activeDoctor.category}</span><h2 id="doctor-dialog-title">${activeDoctor.name}</h2><p class="doctor-role">${activeDoctor.role}</p>`;
+  $('#book-doctor').textContent = activeDoctor.id === 'mina' ? 'اطلب موعدًا مع د. مينا رضا' : 'اطلب موعدًا بالمركز';
   showDialog($('#doctor-dialog'));
 }
 
@@ -124,7 +135,7 @@ $$('dialog').forEach(dialog => {
 });
 
 $('#open-guide')?.addEventListener('click',() => showDialog($('#guide-dialog')));
-$('#book-doctor')?.addEventListener('click',() => openBooking(undefined,activeDoctor?.sample ? null : activeDoctor?.name));
+$('#book-doctor')?.addEventListener('click',() => openBooking(undefined,activeDoctor?.name));
 $('#book-service')?.addEventListener('click',() => openBooking(activeService?.title));
 $('#review-back').addEventListener('click',() => {resetBookingReview();$('#parent-name').focus();});
 
@@ -205,6 +216,8 @@ const phoneCarousel = window.matchMedia('(max-width: 760px)');
 const teamCards = $$('.doctor-card', teamTrack);
 let teamIndex = 0;
 $('#team-carousel-dots').innerHTML = doctors.map((doctor,index) => `<button type="button" data-team-index="${index}" aria-label="عرض ${doctor.name}" aria-controls="team-grid" aria-current="${index===0}"></button>`).join('');
+// Dots shrink to a compact size on phones once the team outgrows the original three cards.
+$('#team-carousel-dots').classList.toggle('dots-compact', doctors.length > 6);
 function syncTeamCarousel() {
   if (!phoneCarousel.matches) return;
   const trackLeft = teamTrack.getBoundingClientRect().left;

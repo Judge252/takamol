@@ -1474,13 +1474,53 @@ window.TAKAMOL_TRANSLATIONS = {
     "ar": "د. مينا رضا",
     "en": "Dr. Mina Reda"
   },
-  "د. أحمد سامح": {
-    "ar": "د. أحمد سامح",
-    "en": "Dr. Ahmed Sameh"
+  "د. خالد عبدالهادي": {
+    "ar": "د. خالد عبدالهادي",
+    "en": "Dr. Khaled Abdelhadi"
   },
-  "د. سارة عادل": {
-    "ar": "د. سارة عادل",
-    "en": "Dr. Sara Adel"
+  "د. يمنى مصطفى": {
+    "ar": "د. يمنى مصطفى",
+    "en": "Dr. Yumna Mostafa"
+  },
+  "د. راهندا محمد الشيخ": {
+    "ar": "د. راهندا محمد الشيخ",
+    "en": "Dr. Rahinda Mohamed El-Sheikh"
+  },
+  "أ. شهد جبالي": {
+    "ar": "أ. شهد جبالي",
+    "en": "Shahd Gabaly"
+  },
+  "أميرة محمود داود": {
+    "ar": "أميرة محمود داود",
+    "en": "Amira Mahmoud Dawoud"
+  },
+  "مروة محمد زلابية": {
+    "ar": "مروة محمد زلابية",
+    "en": "Marwa Mohamed Zalabia"
+  },
+  "منة الله علواني قاسم": {
+    "ar": "منة الله علواني قاسم",
+    "en": "Menatallah Alwani Qasem"
+  },
+  "شروق خميس نبوي": {
+    "ar": "شروق خميس نبوي",
+    "en": "Shorouk Khamis Nabawy"
+  },
+  "فاطمة عبداللطيف الحسني": {
+    "ar": "فاطمة عبداللطيف الحسني",
+    "en": "Fatma Abdellatif El-Hosany"
+  },
+  "بسملة حازم البلكي": {
+    "ar": "بسملة حازم البلكي",
+    "en": "Basmala Hazem El-Balky"
+  },
+  "إيمان حسن عبدالعزيز": {
+    "ar": "إيمان حسن عبدالعزيز",
+    "en": "Eman Hassan Abdelaziz"
+  },
+  "روان محمد موسى": {
+    "ar": "روان محمد موسى",
+    "en": "Rawan Mohamed Mousa"
   },
   "مدرس واستشاري العلاج الطبيعي للأطفال وجراحاتها": {
     "ar": "مدرس واستشاري العلاج الطبيعي للأطفال وجراحاتها",
@@ -1494,41 +1534,49 @@ window.TAKAMOL_TRANSLATIONS = {
     "ar": "ماجستير العلوم العصبية والتصوير العصبي — جامعة بوردو، فرنسا",
     "en": "Master's in Neuroscience and Neuroimaging — University of Bordeaux, France"
   },
-  "أخصائي العلاج الطبيعي والتأهيل الحركي للأطفال": {
-    "ar": "أخصائي العلاج الطبيعي والتأهيل الحركي للأطفال",
-    "en": "Specialist in pediatric physical therapy and movement rehabilitation"
+  "أخصائي العلاج الطبيعي ومدير قسم العلاج المائي": {
+    "ar": "أخصائي العلاج الطبيعي ومدير قسم العلاج المائي",
+    "en": "Specialist in physical therapy and head of the aquatic therapy department"
   },
-  "بكالوريوس العلاج الطبيعي — مؤهل تجريبي للتصميم": {
-    "ar": "بكالوريوس العلاج الطبيعي — مؤهل تجريبي للتصميم",
-    "en": "Bachelor's in Physical Therapy — sample qualification for the design"
+  "دكتور علاج طبيعي": {
+    "ar": "دكتور علاج طبيعي",
+    "en": "Doctor of physical therapy"
   },
-  "اهتمامات نموذجية: التوازن والتناسق الحركي وتنمية المهارات الحركية": {
-    "ar": "اهتمامات نموذجية: التوازن والتناسق الحركي وتنمية المهارات الحركية",
-    "en": "Sample interests: balance, coordination and motor skills development"
+  "أخصائية تخاطب تخصص OPT": {
+    "ar": "أخصائية تخاطب تخصص OPT",
+    "en": "Speech therapist specializing in OPT"
   },
-  "أخصائية التخاطب وتنمية مهارات التواصل": {
-    "ar": "أخصائية التخاطب وتنمية مهارات التواصل",
-    "en": "Specialist in speech therapy and communication skills development"
+  "أخصائية تخاطب": {
+    "ar": "أخصائية تخاطب",
+    "en": "Speech therapist"
   },
-  "تخصص التخاطب وتنمية اللغة — بيانات تجريبية للتصميم": {
-    "ar": "تخصص التخاطب وتنمية اللغة — بيانات تجريبية للتصميم",
-    "en": "Speech and language development — sample information for the design"
+  "أخصائية تنمية مهارات": {
+    "ar": "أخصائية تنمية مهارات",
+    "en": "Skills development specialist"
   },
-  "اهتمامات نموذجية: التواصل واللغة والوعي الصوتي لدى الأطفال": {
-    "ar": "اهتمامات نموذجية: التواصل واللغة والوعي الصوتي لدى الأطفال",
-    "en": "Sample interests: children's communication, language and phonological awareness"
+  "أخصائية صعوبات تعلم": {
+    "ar": "أخصائية صعوبات تعلم",
+    "en": "Learning difficulties specialist"
   },
-  "ملف تجريبي": {
-    "ar": "ملف تجريبي",
-    "en": "Sample profile"
+  "برنامج ستار لتنمية القدرات الأكاديمية": {
+    "ar": "برنامج ستار لتنمية القدرات الأكاديمية",
+    "en": "Star program for developing academic abilities"
   },
-  "نموذج لعضو الفريق": {
-    "ar": "نموذج لعضو الفريق",
-    "en": "Sample team member"
+  "أخصائية تنمية مهارات إدراكية": {
+    "ar": "أخصائية تنمية مهارات إدراكية",
+    "en": "Cognitive skills development specialist"
   },
-  "حالة الملف": {
-    "ar": "حالة الملف",
-    "en": "Profile status"
+  "أخصائية تكامل حسي": {
+    "ar": "أخصائية تكامل حسي",
+    "en": "Sensory integration specialist"
+  },
+  "أخصائية تكامل حسي (تخطيط حركي وقصور بصري)": {
+    "ar": "أخصائية تكامل حسي (تخطيط حركي وقصور بصري)",
+    "en": "Sensory integration specialist (motor planning and visual difficulties)"
+  },
+  "تنمية مهارات وتعديل سلوك": {
+    "ar": "تنمية مهارات وتعديل سلوك",
+    "en": "Skills development and behavior modification"
   },
   "الملف الكامل": {
     "ar": "الملف الكامل",
@@ -1542,10 +1590,6 @@ window.TAKAMOL_TRANSLATIONS = {
     "ar": "المؤهلات العلمية",
     "en": "Qualifications"
   },
-  "ملف تجريبي: الاسم والتخصص والمؤهلات أمثلة للتصميم وليست بيانات عضو حقيقي بالمركز.": {
-    "ar": "ملف تجريبي: الاسم والتخصص والمؤهلات أمثلة للتصميم وليست بيانات عضو حقيقي بالمركز.",
-    "en": "Sample profile: this name, specialty and qualifications are design examples, not details of a real center team member."
-  },
   "اطلب موعدًا بالمركز": {
     "ar": "اطلب موعدًا بالمركز",
     "en": "Request a visit at the center"
@@ -1553,18 +1597,6 @@ window.TAKAMOL_TRANSLATIONS = {
   "اطلب موعدًا مع د. مينا رضا": {
     "ar": "اطلب موعدًا مع د. مينا رضا",
     "en": "Request a visit with Dr. Mina Reda"
-  },
-  "تفاصيل هذا العضو قريبًا": {
-    "ar": "تفاصيل هذا العضو قريبًا",
-    "en": "Profile details coming soon"
-  },
-  "سيُضاف الاسم والتخصص والمؤهلات قريبًا.": {
-    "ar": "سيُضاف الاسم والتخصص والمؤهلات قريبًا.",
-    "en": "Name, specialty and qualifications will be added soon."
-  },
-  "سيُضاف الاسم والتخصص والمؤهلات إلى هذا الملف. يمكنك التواصل مع المركز للتعرّف على الأخصائي المناسب لطفلك.": {
-    "ar": "سيُضاف الاسم والتخصص والمؤهلات إلى هذا الملف. يمكنك التواصل مع المركز للتعرّف على الأخصائي المناسب لطفلك.",
-    "en": "Name, specialty and qualifications will be added to this profile. Contact the center to find the appropriate specialist for your child."
   },
   "من فضلك اكتب اسم ولي الأمر.": {
     "ar": "من فضلك اكتب اسم ولي الأمر.",
@@ -1634,20 +1666,100 @@ window.TAKAMOL_TRANSLATIONS = {
     "ar": "عرض د. مينا رضا",
     "en": "Show Dr. Mina Reda"
   },
-  "الملف الكامل — د. أحمد سامح": {
-    "ar": "الملف الكامل — د. أحمد سامح",
-    "en": "Full profile — Dr. Ahmed Sameh"
+  "الملف الكامل — د. خالد عبدالهادي": {
+    "ar": "الملف الكامل — د. خالد عبدالهادي",
+    "en": "Full profile — Dr. Khaled Abdelhadi"
   },
-  "عرض د. أحمد سامح": {
-    "ar": "عرض د. أحمد سامح",
-    "en": "Show Dr. Ahmed Sameh"
+  "عرض د. خالد عبدالهادي": {
+    "ar": "عرض د. خالد عبدالهادي",
+    "en": "Show Dr. Khaled Abdelhadi"
   },
-  "الملف الكامل — د. سارة عادل": {
-    "ar": "الملف الكامل — د. سارة عادل",
-    "en": "Full profile — Dr. Sara Adel"
+  "الملف الكامل — د. يمنى مصطفى": {
+    "ar": "الملف الكامل — د. يمنى مصطفى",
+    "en": "Full profile — Dr. Yumna Mostafa"
   },
-  "عرض د. سارة عادل": {
-    "ar": "عرض د. سارة عادل",
-    "en": "Show Dr. Sara Adel"
+  "عرض د. يمنى مصطفى": {
+    "ar": "عرض د. يمنى مصطفى",
+    "en": "Show Dr. Yumna Mostafa"
+  },
+  "الملف الكامل — د. راهندا محمد الشيخ": {
+    "ar": "الملف الكامل — د. راهندا محمد الشيخ",
+    "en": "Full profile — Dr. Rahinda Mohamed El-Sheikh"
+  },
+  "عرض د. راهندا محمد الشيخ": {
+    "ar": "عرض د. راهندا محمد الشيخ",
+    "en": "Show Dr. Rahinda Mohamed El-Sheikh"
+  },
+  "الملف الكامل — أ. شهد جبالي": {
+    "ar": "الملف الكامل — أ. شهد جبالي",
+    "en": "Full profile — Shahd Gabaly"
+  },
+  "عرض أ. شهد جبالي": {
+    "ar": "عرض أ. شهد جبالي",
+    "en": "Show Shahd Gabaly"
+  },
+  "الملف الكامل — أميرة محمود داود": {
+    "ar": "الملف الكامل — أميرة محمود داود",
+    "en": "Full profile — Amira Mahmoud Dawoud"
+  },
+  "عرض أميرة محمود داود": {
+    "ar": "عرض أميرة محمود داود",
+    "en": "Show Amira Mahmoud Dawoud"
+  },
+  "الملف الكامل — مروة محمد زلابية": {
+    "ar": "الملف الكامل — مروة محمد زلابية",
+    "en": "Full profile — Marwa Mohamed Zalabia"
+  },
+  "عرض مروة محمد زلابية": {
+    "ar": "عرض مروة محمد زلابية",
+    "en": "Show Marwa Mohamed Zalabia"
+  },
+  "الملف الكامل — منة الله علواني قاسم": {
+    "ar": "الملف الكامل — منة الله علواني قاسم",
+    "en": "Full profile — Menatallah Alwani Qasem"
+  },
+  "عرض منة الله علواني قاسم": {
+    "ar": "عرض منة الله علواني قاسم",
+    "en": "Show Menatallah Alwani Qasem"
+  },
+  "الملف الكامل — شروق خميس نبوي": {
+    "ar": "الملف الكامل — شروق خميس نبوي",
+    "en": "Full profile — Shorouk Khamis Nabawy"
+  },
+  "عرض شروق خميس نبوي": {
+    "ar": "عرض شروق خميس نبوي",
+    "en": "Show Shorouk Khamis Nabawy"
+  },
+  "الملف الكامل — فاطمة عبداللطيف الحسني": {
+    "ar": "الملف الكامل — فاطمة عبداللطيف الحسني",
+    "en": "Full profile — Fatma Abdellatif El-Hosany"
+  },
+  "عرض فاطمة عبداللطيف الحسني": {
+    "ar": "عرض فاطمة عبداللطيف الحسني",
+    "en": "Show Fatma Abdellatif El-Hosany"
+  },
+  "الملف الكامل — بسملة حازم البلكي": {
+    "ar": "الملف الكامل — بسملة حازم البلكي",
+    "en": "Full profile — Basmala Hazem El-Balky"
+  },
+  "عرض بسملة حازم البلكي": {
+    "ar": "عرض بسملة حازم البلكي",
+    "en": "Show Basmala Hazem El-Balky"
+  },
+  "الملف الكامل — إيمان حسن عبدالعزيز": {
+    "ar": "الملف الكامل — إيمان حسن عبدالعزيز",
+    "en": "Full profile — Eman Hassan Abdelaziz"
+  },
+  "عرض إيمان حسن عبدالعزيز": {
+    "ar": "عرض إيمان حسن عبدالعزيز",
+    "en": "Show Eman Hassan Abdelaziz"
+  },
+  "الملف الكامل — روان محمد موسى": {
+    "ar": "الملف الكامل — روان محمد موسى",
+    "en": "Full profile — Rawan Mohamed Mousa"
+  },
+  "عرض روان محمد موسى": {
+    "ar": "عرض روان محمد موسى",
+    "en": "Show Rawan Mohamed Mousa"
   }
 };
