@@ -610,6 +610,22 @@ window.TAKAMOL_TRANSLATIONS = {
     "ar": "زيارة صفحة المركز ↗",
     "en": "Visit our Facebook page ↗"
   },
+  "رأيك يفرق معانا 💛": {
+    "ar": "رأيك يفرق معانا 💛",
+    "en": "Your opinion matters 💛"
+  },
+  "تجربتك تهمنا، ونسعد بمشاركة رأيك عن مركز تكامل على صفحتنا على فيسبوك.": {
+    "ar": "تجربتك تهمنا، ونسعد بمشاركة رأيك عن مركز تكامل على صفحتنا على فيسبوك.",
+    "en": "Your experience matters to us. We'd be happy to hear your feedback about Takamol Center on our Facebook page."
+  },
+  "شاركنا رأيك على فيسبوك": {
+    "ar": "شاركنا رأيك على فيسبوك",
+    "en": "Share your feedback on Facebook"
+  },
+  "شاركنا رأيك عن مركز تكامل على فيسبوك": {
+    "ar": "شاركنا رأيك عن مركز تكامل على فيسبوك",
+    "en": "Share your feedback about Takamol Center on Facebook"
+  },
   "ع ش": {
     "ar": "ع ش",
     "en": "AS"
@@ -1629,6 +1645,82 @@ window.TAKAMOL_TRANSLATIONS = {
   "الفترة": {
     "ar": "الفترة",
     "en": "Time preference"
+  },
+  "سن الطفل": {
+    "ar": "سن الطفل",
+    "en": "Child's age"
+  },
+  "مثال: 4 سنوات أو 8 شهور": {
+    "ar": "مثال: 4 سنوات أو 8 شهور",
+    "en": "For example: 4 years or 8 months"
+  },
+  "المدينة / مكان الإقامة": {
+    "ar": "المدينة / مكان الإقامة",
+    "en": "City / Location"
+  },
+  "اختر المدينة": {
+    "ar": "اختر المدينة",
+    "en": "Choose a location"
+  },
+  "دمنهور": {
+    "ar": "دمنهور",
+    "en": "Damanhour"
+  },
+  "بجانب دمنهور": {
+    "ar": "بجانب دمنهور",
+    "en": "Near Damanhour"
+  },
+  "الإسكندرية": {
+    "ar": "الإسكندرية",
+    "en": "Alexandria"
+  },
+  "القاهرة": {
+    "ar": "القاهرة",
+    "en": "Cairo"
+  },
+  "محافظات أخرى": {
+    "ar": "محافظات أخرى",
+    "en": "Other governorates"
+  },
+  "خارج مصر": {
+    "ar": "خارج مصر",
+    "en": "Outside Egypt"
+  },
+  "المحافظة / المدينة": {
+    "ar": "المحافظة / المدينة",
+    "en": "Governorate / City"
+  },
+  "اكتب اسم المحافظة أو المدينة": {
+    "ar": "اكتب اسم المحافظة أو المدينة",
+    "en": "Enter your governorate or city"
+  },
+  "من أي دولة؟": {
+    "ar": "من أي دولة؟",
+    "en": "Which country?"
+  },
+  "اكتب اسم الدولة": {
+    "ar": "اكتب اسم الدولة",
+    "en": "Enter the country"
+  },
+  "الدولة": {
+    "ar": "الدولة",
+    "en": "Country"
+  },
+  "من فضلك اكتب سن الطفل.": {
+    "ar": "من فضلك اكتب سن الطفل.",
+    "en": "Please enter the child's age."
+  },
+  "من فضلك اختر المدينة.": {
+    "ar": "من فضلك اختر المدينة.",
+    "en": "Please choose a location."
+  },
+  "من فضلك اكتب المحافظة أو المدينة.": {
+    "ar": "من فضلك اكتب المحافظة أو المدينة.",
+    "en": "Please enter the governorate or city."
+  },
+  "من فضلك اكتب اسم الدولة.": {
+    "ar": "من فضلك اكتب اسم الدولة.",
+    "en": "Please enter the country."
   },
   "تم نسخ العنوان. مستنيينك في تكامل!": {
     "ar": "تم نسخ العنوان. مستنيينك في تكامل!",

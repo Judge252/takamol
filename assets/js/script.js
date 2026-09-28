@@ -153,31 +153,73 @@ $('#preferred-date').addEventListener('invalid', () => {
   if ($('#preferred-date').validity.rangeUnderflow) $('#preferred-date').setCustomValidity(window.TakamolI18n.t('اختر اليوم أو يومًا قادمًا.'));
 });
 
+// The two follow-up location questions are mutually exclusive and never submitted together.
+function syncBookingLocation() {
+  const location = $('#booking-location').value;
+  const showGovernorate = location === 'محافظات أخرى';
+  const showCountry = location === 'خارج مصر';
+  $('#governorate-field').hidden = !showGovernorate;
+  $('#other-governorate').required = showGovernorate;
+  if (!showGovernorate) $('#other-governorate').value = '';
+  $('#country-field').hidden = !showCountry;
+  $('#outside-country').required = showCountry;
+  if (!showCountry) $('#outside-country').value = '';
+}
+$('#booking-location').addEventListener('change', () => { $('#booking-location').setCustomValidity(''); syncBookingLocation(); });
+$('#child-age').addEventListener('input', () => $('#child-age').setCustomValidity(''));
+$('#other-governorate').addEventListener('input', () => $('#other-governorate').setCustomValidity(''));
+$('#outside-country').addEventListener('input', () => $('#outside-country').setCustomValidity(''));
+$('#booking-location').addEventListener('invalid', () => {
+  if (!$('#booking-location').value) $('#booking-location').setCustomValidity(window.TakamolI18n.t('من فضلك اختر المدينة.'));
+});
+$('#child-age').addEventListener('invalid', () => {
+  if (!$('#child-age').value.trim()) $('#child-age').setCustomValidity(window.TakamolI18n.t('من فضلك اكتب سن الطفل.'));
+});
+$('#other-governorate').addEventListener('invalid', () => {
+  if ($('#other-governorate').required && !$('#other-governorate').value.trim()) $('#other-governorate').setCustomValidity(window.TakamolI18n.t('من فضلك اكتب المحافظة أو المدينة.'));
+});
+$('#outside-country').addEventListener('invalid', () => {
+  if ($('#outside-country').required && !$('#outside-country').value.trim()) $('#outside-country').setCustomValidity(window.TakamolI18n.t('من فضلك اكتب اسم الدولة.'));
+});
+
 function reviewBooking(event) {
   event.preventDefault();
   const nameInput = $('#parent-name');
   const dateInput = $('#preferred-date');
+  const ageInput = $('#child-age');
+  const locationInput = $('#booking-location');
+  const governorateInput = $('#other-governorate');
+  const countryInput = $('#outside-country');
   nameInput.setCustomValidity(nameInput.value.trim() ? '' : window.TakamolI18n.t('من فضلك اكتب اسم ولي الأمر.'));
   dateInput.min = localDate();
   dateInput.setCustomValidity(dateInput.value && dateInput.value < localDate() ? window.TakamolI18n.t('اختر اليوم أو يومًا قادمًا.') : '');
+  ageInput.setCustomValidity(ageInput.value.trim() ? '' : window.TakamolI18n.t('من فضلك اكتب سن الطفل.'));
+  locationInput.setCustomValidity(locationInput.value ? '' : window.TakamolI18n.t('من فضلك اختر المدينة.'));
+  governorateInput.setCustomValidity(!governorateInput.required || governorateInput.value.trim() ? '' : window.TakamolI18n.t('من فضلك اكتب المحافظة أو المدينة.'));
+  countryInput.setCustomValidity(!countryInput.required || countryInput.value.trim() ? '' : window.TakamolI18n.t('من فضلك اكتب اسم الدولة.'));
   if (!$('#booking-form').reportValidity()) return;
   const name = nameInput.value.trim();
+  const age = ageInput.value.trim();
+  const location = locationInput.value;
+  const governorate = location === 'محافظات أخرى' ? governorateInput.value.trim() : '';
+  const country = location === 'خارج مصر' ? countryInput.value.trim() : '';
   const service = $('#booking-service').value;
   const date = dateInput.value ? new Intl.DateTimeFormat(window.TakamolI18n.language==='en'?'en-GB':'ar-EG',{dateStyle:'full'}).format(new Date(`${dateInput.value}T12:00:00`)) : 'بالتنسيق مع المركز';
   const period = $('#preferred-period').value;
   const summary = $('#review-summary');
   summary.replaceChildren();
-  [['ولي الأمر',name],['الخدمة',service],...(preferredDoctor ? [['الطبيب المطلوب',preferredDoctor]] : []),['اليوم المفضّل',date],['الفترة',period]].forEach(([label,value]) => {
+  const enteredByUser = ['ولي الأمر','سن الطفل','المحافظة / المدينة','الدولة'];
+  [['ولي الأمر',name],['سن الطفل',age],['المدينة / مكان الإقامة',location],...(governorate ? [['المحافظة / المدينة',governorate]] : []),...(country ? [['الدولة',country]] : []),['الخدمة',service],...(preferredDoctor ? [['الطبيب المطلوب',preferredDoctor]] : []),['اليوم المفضّل',date],['الفترة المفضّلة',period]].forEach(([label,value]) => {
     const row = document.createElement('div');row.className = 'review-row';
     const key = document.createElement('span');key.textContent = label;
-    const text = document.createElement('strong');text.textContent = label==='ولي الأمر' ? value : window.TakamolI18n.t(value);
-    text.dataset.i18nIgnore = ''; // Never translate user-entered names or generated date strings.
+    const text = document.createElement('strong');text.textContent = enteredByUser.includes(label) ? value : window.TakamolI18n.t(value);
+    text.dataset.i18nIgnore = ''; // Never translate user-entered names, ages, places or generated date strings.
     row.append(key,text);summary.append(row);
   });
-  const arabicMessage = `مرحبًا مركز تكامل، أرغب في طلب موعد.\nاسم ولي الأمر: ${name}\nالخدمة: ${service}${preferredDoctor ? '\nالطبيب المطلوب: ' + preferredDoctor : ''}\nاليوم المفضّل: ${date}\nالفترة المفضّلة: ${period}\nأرجو إبلاغي بالمواعيد المتاحة والتكلفة وتأكيد الموعد. شكرًا لكم.`;
+  const arabicMessage = `مرحبًا مركز تكامل، أرغب في طلب موعد.\nاسم ولي الأمر: ${name}\nسن الطفل: ${age}\nالمدينة / مكان الإقامة: ${location}${governorate ? '\nالمحافظة / المدينة: ' + governorate : ''}${country ? '\nالدولة: ' + country : ''}\nالخدمة: ${service}${preferredDoctor ? '\nالطبيب المطلوب: ' + preferredDoctor : ''}\nاليوم المفضّل: ${date}\nالفترة المفضّلة: ${period}\nأرجو إبلاغي بالمواعيد المتاحة والتكلفة وتأكيد الموعد. شكرًا لكم.`;
   const t=window.TakamolI18n.t;
   const message=window.TakamolI18n.language==='en'
-    ? `Hello Takamol Center, I would like to request an appointment.\nParent or guardian: ${name}\nService: ${t(service)}${preferredDoctor ? '\nRequested clinician: '+t(preferredDoctor) : ''}\nPreferred day: ${t(date)}\nPreferred time: ${t(period)}\nPlease let me know the available times and cost, and confirm the appointment. Thank you.`
+    ? `Hello Takamol Center, I would like to request an appointment.\nParent or guardian: ${name}\nChild's age: ${age}\nCity / Location: ${t(location)}${governorate ? '\nGovernorate / City: ' + governorate : ''}${country ? '\nCountry: ' + country : ''}\nService: ${t(service)}${preferredDoctor ? '\nRequested clinician: '+t(preferredDoctor) : ''}\nPreferred day: ${t(date)}\nPreferred time: ${t(period)}\nPlease let me know the available times and cost, and confirm the appointment. Thank you.`
     : arabicMessage;
   $('#whatsapp-send').href = `https://wa.me/201068681114?text=${encodeURIComponent(message)}`;
   $('#booking-form').hidden = true;
@@ -307,7 +349,7 @@ const leadFields = {
 
 // Keep an open review and validation messages in sync without resetting inputs.
 document.addEventListener('takamol:languagechange',()=>{
- $('#parent-name').setCustomValidity(''); $('#preferred-date').setCustomValidity('');
+ ['#parent-name','#preferred-date','#child-age','#booking-location','#other-governorate','#outside-country'].forEach(id => $(id).setCustomValidity(''));
  if(!$('#booking-review').hidden)reviewBooking({preventDefault(){},languageChange:true});
 });
 window.TakamolI18n.init();
