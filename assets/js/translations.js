@@ -1853,5 +1853,33 @@ window.TAKAMOL_TRANSLATIONS = {
   "عرض روان محمد موسى": {
     "ar": "عرض روان محمد موسى",
     "en": "Show Rawan Mohamed Mousa"
+  },
+  "منسق إداري مركز تكامل": {
+    "ar": "منسق إداري مركز تكامل",
+    "en": "Administrative Coordinator, Takamol Center"
+  },
+  "حبيبة قناوي": {
+    "ar": "حبيبة قناوي",
+    "en": "Habiba Qanawy"
+  },
+  "الملف الكامل — حبيبة قناوي": {
+    "ar": "الملف الكامل — حبيبة قناوي",
+    "en": "Full profile — Habiba Qanawy"
+  },
+  "عرض حبيبة قناوي": {
+    "ar": "عرض حبيبة قناوي",
+    "en": "Show Habiba Qanawy"
+  },
+  "ميادة حسن": {
+    "ar": "ميادة حسن",
+    "en": "Mayada Hassan"
+  },
+  "الملف الكامل — ميادة حسن": {
+    "ar": "الملف الكامل — ميادة حسن",
+    "en": "Full profile — Mayada Hassan"
+  },
+  "عرض ميادة حسن": {
+    "ar": "عرض ميادة حسن",
+    "en": "Show Mayada Hassan"
   }
 };

@@ -40,7 +40,9 @@ const doctors = [
   {id:'fatma',name:'فاطمة عبداللطيف الحسني',category:'التكامل الحسي',role:'أخصائية تكامل حسي (تخطيط حركي وقصور بصري)',image:'assets/images/فاطمة حسني.jpeg',width:1254,height:1254},
   {id:'basmala',name:'بسملة حازم البلكي',category:'التخاطب والتواصل',role:'أخصائية تخاطب',image:'assets/images/بسمله حازم.jpeg',width:1254,height:1254},
   {id:'eman',name:'إيمان حسن عبدالعزيز',category:'تنمية المهارات وصعوبات التعلّم',role:'تنمية مهارات وتعديل سلوك',image:'assets/images/ايمان حسن.jpeg',width:1254,height:1254},
-  {id:'rawan',name:'روان محمد موسى',category:'التخاطب والتواصل',role:'أخصائية تخاطب',image:'assets/images/روان محمد.jpeg',width:1254,height:1254}
+  {id:'rawan',name:'روان محمد موسى',category:'التخاطب والتواصل',role:'أخصائية تخاطب',image:'assets/images/روان محمد.jpeg',width:1254,height:1254},
+  {id:'habiba',name:'حبيبة قناوي',category:'منسق إداري مركز تكامل',role:'منسق إداري مركز تكامل',image:'assets/images/حبيبة قناوي.jpeg',width:576,height:1024},
+  {id:'mayada',name:'ميادة حسن',category:'منسق إداري مركز تكامل',role:'منسق إداري مركز تكامل',image:'assets/images/ميادة حسن.jpeg',width:652,height:1160}
 ];
 let activeDoctor = null;
 function renderDoctors() {
